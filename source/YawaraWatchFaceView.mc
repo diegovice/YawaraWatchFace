@@ -5,8 +5,6 @@ using Toybox.Lang as Lang;
 
 class YawaraWatchFaceView extends Ui.WatchFace {
 
-    var background;
-
     function initialize() {
         WatchFace.initialize();
     }
@@ -25,10 +23,6 @@ class YawaraWatchFaceView extends Ui.WatchFace {
     // Update the view
     function onUpdate(dc) {
         System.println("update");
-        // Configurazioni
-        getSettings();
-        // Imposta lo sfondo
-        dc.drawBitmap(0, 0, background);
         // Get and show the current time
         var clockTime = Sys.getClockTime();
         var timeString = Lang.format("$1$:$2$", [clockTime.hour, clockTime.min.format("%02d")]);
@@ -52,9 +46,5 @@ class YawaraWatchFaceView extends Ui.WatchFace {
 
     // Terminate any active timers and prepare for slow updates.
     function onEnterSleep() {
-    }
-
-    function getSettings() {
-        background = Ui.loadResource(Rez.Drawables.MainBackground);
     }
 }
