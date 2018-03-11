@@ -1,4 +1,5 @@
 <fonts>
-	<font id="lato" filename="lato.fnt" filter="0123456789" />
-	<font id="latoLight" filename="latoLight.fnt" filter="0123456789" />
+	<font id="tekoMedium100" filename="tekoMedium_100.fnt" filter="0123456789" />
+	<font id="teko100" filename="teko_100.fnt" filter="0123456789" />
+	<font id="teko30" filename="teko_30.fnt" filter="0123456789AMP" />
 </fonts>
