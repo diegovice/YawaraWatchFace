@@ -1,0 +1,3 @@
+<resources>
+	<bitmap id="batteryFull" filename="images/battery_full.png"/>
+</resources>

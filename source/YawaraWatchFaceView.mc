@@ -14,6 +14,9 @@ class YawaraWatchFaceView extends Ui.WatchFace {
 	// Settings
 	var device_settings;
 
+	// Status
+	var device_status;
+
 	function initialize() {
 		WatchFace.initialize();
 	}
@@ -21,7 +24,6 @@ class YawaraWatchFaceView extends Ui.WatchFace {
 	// Load your resources here
 	function onLayout(dc) {
 		device_settings = Sys.getDeviceSettings();
-		
 		setLayout(Rez.Layouts.WatchFace(dc));
 	}
 
@@ -29,6 +31,8 @@ class YawaraWatchFaceView extends Ui.WatchFace {
 	// the state of this View and prepare it to be shown. This includes
 	// loading resources into memory.
 	function onShow() {
+		fast_updates = true;
+		Ui.requestUpdate();
 	}
 
 	// Update the view
@@ -36,7 +40,7 @@ class YawaraWatchFaceView extends Ui.WatchFace {
 		System.println("update");
 
 		//
-		// Get and show the current time
+		// Visualizza l'orario
 		//
 		var clockTime = Sys.getClockTime();
 		var dateStrings = Time.Gregorian.info( Time.now(), Time.FORMAT_MEDIUM);
@@ -70,14 +74,23 @@ class YawaraWatchFaceView extends Ui.WatchFace {
 		viewHour.setText(hour);
 		viewMinute.setText(min);
 		viewAMPM.setText(ampm);
-		
-		// Se l'utente sta guardando l'orologio visualizza tutte le indormazioni
+
+		// Se l'utente sta guardando la schermata orologio visualizza tutte le informazioni
 		if (fast_updates){
 			sec = Lang.format("$1$",[sec.format("%02d")]);
 			var viewSecond = View.findDrawableById("TimeSecondLabel");
 			viewSecond.setText(sec);
 		}
 		System.println("Orario = "+hour+":"+min+"."+sec);
+
+		//
+		// Livello batteria
+		//
+		device_status = Sys.getSystemStats();
+		var bperc = device_status.battery;
+		var picBattery = Ui.loadResource(Rez.Drawables.batteryFull);
+		dc.drawBitmap(120, 50, picBattery);
+		System.println("Livello batteria = " + bperc);
 
 		// Call the parent onUpdate function to redraw the layout
 		View.onUpdate(dc);
@@ -89,18 +102,13 @@ class YawaraWatchFaceView extends Ui.WatchFace {
 	function onHide() {
 		fast_updates = false;
 		Ui.requestUpdate();
-	
 	}
 
 	// The user has just looked at their watch. Timers and animations may be started here.
 	function onExitSleep() {
-		fast_updates = true;
-		Ui.requestUpdate();
 	}
 
 	// Terminate any active timers and prepare for slow updates.
 	function onEnterSleep() {
-		fast_updates = false;
-		Ui.requestUpdate();
 	}
 }
