@@ -25,10 +25,13 @@ class YawaraWatchFaceView extends Ui.WatchFace {
 		System.println("update");
 		// Get and show the current time
 		var clockTime = Sys.getClockTime();
-		var timeString = Lang.format("$1$$2$", [clockTime.hour, clockTime.min.format("%02d")]);
-		System.println("Ora: "+timeString);
-		var view = View.findDrawableById("TimeLabel");
-		view.setText(timeString);
+		var timeHourString = Lang.format("$1$", [clockTime.hour]);
+		var timeMinuteString = Lang.format("$1$", [clockTime.min.format("%02d")]);
+		System.println("Ora: "+timeHourString+":"+timeMinuteString);
+		var viewHour = View.findDrawableById("TimeHourLabel");
+		var viewMinute = View.findDrawableById("TimeMinuteLabel");
+		viewHour.setText(timeHourString);
+		viewMinute.setText(timeMinuteString);
 		
 		// Call the parent onUpdate function to redraw the layout
 		View.onUpdate(dc);

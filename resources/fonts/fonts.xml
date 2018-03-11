@@ -1,3 +1,4 @@
 <fonts>
-	<font id="customLato" filename="customLato.fnt" filter="0123456789" />
+	<font id="lato" filename="lato.fnt" filter="0123456789" />
+	<font id="latoLight" filename="latoLight.fnt" filter="0123456789" />
 </fonts>
